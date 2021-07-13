@@ -1,0 +1,668 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={US\_census\_data},
+  pdfauthor={Emanuel Fitta},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{US\_census\_data}
+\author{Emanuel Fitta}
+\date{25/5/2021}
+
+\begin{document}
+\maketitle
+
+\#Importing libraries
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(tidyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{attaching-files}{%
+\subsubsection{Attaching files}\label{attaching-files}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{files }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"states\_.*csv"}\NormalTok{)}
+\NormalTok{df\_list }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(files, read\_csv)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Missing column names filled in: 'X1' [1]
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   X1 = col_double(),
+##   State = col_character(),
+##   TotalPop = col_double(),
+##   Hispanic = col_character(),
+##   White = col_character(),
+##   Black = col_character(),
+##   Native = col_character(),
+##   Asian = col_character(),
+##   Pacific = col_character(),
+##   Income = col_character(),
+##   GenderPop = col_character()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(df\_list)}
+\end{Highlighting}
+\end{Shaded}
+
+\#\#\#Inspecting `r us\_census' Data Frame
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 11
+##      X1 State  TotalPop Hispanic   White  Black  Native  Asian  Pacific  Income 
+##   <dbl> <chr>     <dbl> <chr>      <chr>  <chr>  <chr>   <chr>  <chr>    <chr>  
+## 1     0 Alaba~  4830620 3.7516156~ 61.87~ 31.25~ 0.4532~ 1.050~ 0.03435~ $43296~
+## 2     1 Alaska   733375 5.9095808~ 60.91~ 2.848~ 16.391~ 5.450~ 1.05868~ $70354~
+## 3     2 Arizo~  6641928 29.565921~ 57.12~ 3.850~ 4.3550~ 2.876~ 0.16763~ $54207~
+## 4     3 Arkan~  2958208 6.2154744~ 71.13~ 18.96~ 0.5229~ 1.142~ 0.14686~ $41935~
+## 5     4 Calif~ 38421464 37.291874~ 40.21~ 5.677~ 0.4052~ 13.05~ 0.35141~ $67264~
+## 6     5 Color~  5278906 20.784380~ 69.89~ 3.546~ 0.5738~ 2.661~ 0.11964~ $64657~
+## # ... with 1 more variable: GenderPop <chr>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## spec_tbl_df [61 x 11] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+##  $ X1       : num [1:61] 0 1 2 3 4 5 0 1 2 3 ...
+##  $ State    : chr [1:61] "Alabama" "Alaska" "Arizona" "Arkansas" ...
+##  $ TotalPop : num [1:61] 4830620 733375 6641928 2958208 38421464 ...
+##  $ Hispanic : chr [1:61] "3.7516156462584975%" "5.909580838323351%" "29.565921052631502%" "6.215474452554738%" ...
+##  $ White    : chr [1:61] "61.878656462585%" "60.910179640718574%" "57.120000000000026%" "71.13781021897813%" ...
+##  $ Black    : chr [1:61] "31.25297619047618%" "2.8485029940119775%" "3.8509868421052658%" "18.968759124087573%" ...
+##  $ Native   : chr [1:61] "0.4532312925170065%" "16.39101796407186%" "4.35506578947368%" "0.5229197080291965%" ...
+##  $ Asian    : chr [1:61] "1.0502551020408146%" "5.450299401197604%" "2.876578947368419%" "1.1423357664233578%" ...
+##  $ Pacific  : chr [1:61] "0.03435374149659865%" "1.0586826347305378%" "0.16763157894736833%" "0.14686131386861315%" ...
+##  $ Income   : chr [1:61] "$43296.35860306644" "$70354.74390243902" "$54207.82095490716" "$41935.63396778917" ...
+##  $ GenderPop: chr [1:61] "2341093M_2489527F" "384160M_349215F" "3299088M_3342840F" "1451913M_1506295F" ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   X1 = col_double(),
+##   ..   State = col_character(),
+##   ..   TotalPop = col_double(),
+##   ..   Hispanic = col_character(),
+##   ..   White = col_character(),
+##   ..   Black = col_character(),
+##   ..   Native = col_character(),
+##   ..   Asian = col_character(),
+##   ..   Pacific = col_character(),
+##   ..   Income = col_character(),
+##   ..   GenderPop = col_character()
+##   .. )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "X1"        "State"     "TotalPop"  "Hispanic"  "White"     "Black"    
+##  [7] "Native"    "Asian"     "Pacific"   "Income"    "GenderPop"
+\end{verbatim}
+
+\hypertarget{droping-x1-column}{%
+\subsubsection{Droping X1 column}\label{droping-x1-column}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%}\FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{X1)}
+\FunctionTok{head}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 10
+##   State  TotalPop Hispanic  White  Black  Native  Asian Pacific Income GenderPop
+##   <chr>     <dbl> <chr>     <chr>  <chr>  <chr>   <chr> <chr>   <chr>  <chr>    
+## 1 Alaba~  4830620 3.751615~ 61.87~ 31.25~ 0.4532~ 1.05~ 0.0343~ $4329~ 2341093M~
+## 2 Alaska   733375 5.909580~ 60.91~ 2.848~ 16.391~ 5.45~ 1.0586~ $7035~ 384160M_~
+## 3 Arizo~  6641928 29.56592~ 57.12~ 3.850~ 4.3550~ 2.87~ 0.1676~ $5420~ 3299088M~
+## 4 Arkan~  2958208 6.215474~ 71.13~ 18.96~ 0.5229~ 1.14~ 0.1468~ $4193~ 1451913M~
+## 5 Calif~ 38421464 37.29187~ 40.21~ 5.677~ 0.4052~ 13.0~ 0.3514~ $6726~ 19087135~
+## 6 Color~  5278906 20.78438~ 69.89~ 3.546~ 0.5738~ 2.66~ 0.1196~ $6465~ 2648667M~
+\end{verbatim}
+
+\#\#\#Removing \(\%\) symbol from each race columns
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%} 
+\FunctionTok{mutate}\NormalTok{(}\AttributeTok{Hispanic =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, Hispanic), }
+\AttributeTok{White =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, White),}
+\AttributeTok{Black =}\FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, Black),}
+\AttributeTok{Native =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, Native),}
+\AttributeTok{Asian =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, Asian),}
+\AttributeTok{Pacific =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{\%\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, Pacific), }\AttributeTok{Income =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{$\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, Income) ) }
+
+\FunctionTok{head}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 10
+##   State  TotalPop Hispanic  White  Black  Native  Asian Pacific Income GenderPop
+##   <chr>     <dbl> <chr>     <chr>  <chr>  <chr>   <chr> <chr>   <chr>  <chr>    
+## 1 Alaba~  4830620 3.751615~ 61.87~ 31.25~ 0.4532~ 1.05~ 0.0343~ 43296~ 2341093M~
+## 2 Alaska   733375 5.909580~ 60.91~ 2.848~ 16.391~ 5.45~ 1.0586~ 70354~ 384160M_~
+## 3 Arizo~  6641928 29.56592~ 57.12~ 3.850~ 4.3550~ 2.87~ 0.1676~ 54207~ 3299088M~
+## 4 Arkan~  2958208 6.215474~ 71.13~ 18.96~ 0.5229~ 1.14~ 0.1468~ 41935~ 1451913M~
+## 5 Calif~ 38421464 37.29187~ 40.21~ 5.677~ 0.4052~ 13.0~ 0.3514~ 67264~ 19087135~
+## 6 Color~  5278906 20.78438~ 69.89~ 3.546~ 0.5738~ 2.66~ 0.1196~ 64657~ 2648667M~
+\end{verbatim}
+
+\hypertarget{separating-genderpop-column}{%
+\subsubsection{Separating GenderPop
+column}\label{separating-genderpop-column}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{separate}\NormalTok{(GenderPop, }\AttributeTok{into =} \FunctionTok{c}\NormalTok{(}\StringTok{"male\_pop"}\NormalTok{, }\StringTok{"female\_pop"}\NormalTok{), }\AttributeTok{sep =} \StringTok{"\_"}\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 11
+##   State  TotalPop Hispanic  White  Black  Native  Asian  Pacific Income male_pop
+##   <chr>     <dbl> <chr>     <chr>  <chr>  <chr>   <chr>  <chr>   <chr>  <chr>   
+## 1 Alaba~  4830620 3.751615~ 61.87~ 31.25~ 0.4532~ 1.050~ 0.0343~ 43296~ 2341093M
+## 2 Alaska   733375 5.909580~ 60.91~ 2.848~ 16.391~ 5.450~ 1.0586~ 70354~ 384160M 
+## 3 Arizo~  6641928 29.56592~ 57.12~ 3.850~ 4.3550~ 2.876~ 0.1676~ 54207~ 3299088M
+## 4 Arkan~  2958208 6.215474~ 71.13~ 18.96~ 0.5229~ 1.142~ 0.1468~ 41935~ 1451913M
+## 5 Calif~ 38421464 37.29187~ 40.21~ 5.677~ 0.4052~ 13.05~ 0.3514~ 67264~ 1908713~
+## 6 Color~  5278906 20.78438~ 69.89~ 3.546~ 0.5738~ 2.661~ 0.1196~ 64657~ 2648667M
+## # ... with 1 more variable: female_pop <chr>
+\end{verbatim}
+
+\#\#\#Removing M and F from male\_pop and female\_pop columns
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{male\_pop =}\FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{M"}\NormalTok{, }\StringTok{""}\NormalTok{, male\_pop))}
+
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{female\_pop =}\FunctionTok{gsub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{F"}\NormalTok{, }\StringTok{""}\NormalTok{, female\_pop))}
+
+\FunctionTok{head}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 11
+##   State  TotalPop Hispanic  White  Black  Native  Asian  Pacific Income male_pop
+##   <chr>     <dbl> <chr>     <chr>  <chr>  <chr>   <chr>  <chr>   <chr>  <chr>   
+## 1 Alaba~  4830620 3.751615~ 61.87~ 31.25~ 0.4532~ 1.050~ 0.0343~ 43296~ 2341093 
+## 2 Alaska   733375 5.909580~ 60.91~ 2.848~ 16.391~ 5.450~ 1.0586~ 70354~ 384160  
+## 3 Arizo~  6641928 29.56592~ 57.12~ 3.850~ 4.3550~ 2.876~ 0.1676~ 54207~ 3299088 
+## 4 Arkan~  2958208 6.215474~ 71.13~ 18.96~ 0.5229~ 1.142~ 0.1468~ 41935~ 1451913 
+## 5 Calif~ 38421464 37.29187~ 40.21~ 5.677~ 0.4052~ 13.05~ 0.3514~ 67264~ 19087135
+## 6 Color~  5278906 20.78438~ 69.89~ 3.546~ 0.5738~ 2.661~ 0.1196~ 64657~ 2648667 
+## # ... with 1 more variable: female_pop <chr>
+\end{verbatim}
+
+\#\#\#Converting to numeric type
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Hispanic =} \FunctionTok{as.numeric}\NormalTok{(Hispanic),}
+         \AttributeTok{White =} \FunctionTok{as.numeric}\NormalTok{(White),}
+         \AttributeTok{Black =} \FunctionTok{as.numeric}\NormalTok{(Black),}
+         \AttributeTok{Native =} \FunctionTok{as.numeric}\NormalTok{(Native),}
+         \AttributeTok{Asian =} \FunctionTok{as.numeric}\NormalTok{(Asian),}
+         \AttributeTok{Pacific =} \FunctionTok{as.numeric}\NormalTok{(Pacific),}
+         \AttributeTok{Income =} \FunctionTok{as.numeric}\NormalTok{(Income),}
+         \AttributeTok{male\_pop =} \FunctionTok{as.numeric}\NormalTok{(male\_pop),}
+      \AttributeTok{female\_pop =} 
+        \FunctionTok{as.numeric}\NormalTok{(female\_pop)}
+\NormalTok{            )}
+
+\FunctionTok{head}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 11
+##   State      TotalPop Hispanic White Black Native Asian Pacific Income male_pop
+##   <chr>         <dbl>    <dbl> <dbl> <dbl>  <dbl> <dbl>   <dbl>  <dbl>    <dbl>
+## 1 Alabama     4830620     3.75  61.9 31.3   0.453  1.05  0.0344 43296.  2341093
+## 2 Alaska       733375     5.91  60.9  2.85 16.4    5.45  1.06   70355.   384160
+## 3 Arizona     6641928    29.6   57.1  3.85  4.36   2.88  0.168  54208.  3299088
+## 4 Arkansas    2958208     6.22  71.1 19.0   0.523  1.14  0.147  41936.  1451913
+## 5 California 38421464    37.3   40.2  5.68  0.405 13.1   0.351  67265. 19087135
+## 6 Colorado    5278906    20.8   69.9  3.55  0.574  2.66  0.120  64658.  2648667
+## # ... with 1 more variable: female_pop <dbl>
+\end{verbatim}
+
+\#\#\#Converting to decimal the percentages
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Hispanic =}\NormalTok{ Hispanic}\SpecialCharTok{/}\DecValTok{100}\NormalTok{,}
+         \AttributeTok{White =}\NormalTok{ White}\SpecialCharTok{/}\DecValTok{100}\NormalTok{,}
+         \AttributeTok{Black =}\NormalTok{ Black}\SpecialCharTok{/}\DecValTok{100}\NormalTok{,}
+         \AttributeTok{Native =}\NormalTok{ Native}\SpecialCharTok{/}\DecValTok{100}\NormalTok{,}
+         \AttributeTok{Asian =}\NormalTok{ Asian}\SpecialCharTok{/}\DecValTok{100}\NormalTok{,}
+         \AttributeTok{Pacific =}\NormalTok{ Pacific}\SpecialCharTok{/}\DecValTok{100}\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(us\_census)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 11
+##   State    TotalPop Hispanic White  Black  Native  Asian Pacific Income male_pop
+##   <chr>       <dbl>    <dbl> <dbl>  <dbl>   <dbl>  <dbl>   <dbl>  <dbl>    <dbl>
+## 1 Alabama   4830620   0.0375 0.619 0.313  0.00453 0.0105 3.44e-4 43296.  2341093
+## 2 Alaska     733375   0.0591 0.609 0.0285 0.164   0.0545 1.06e-2 70355.   384160
+## 3 Arizona   6641928   0.296  0.571 0.0385 0.0436  0.0288 1.68e-3 54208.  3299088
+## 4 Arkansas  2958208   0.0622 0.711 0.190  0.00523 0.0114 1.47e-3 41936.  1451913
+## 5 Califor~ 38421464   0.373  0.402 0.0568 0.00405 0.131  3.51e-3 67265. 19087135
+## 6 Colorado  5278906   0.208  0.699 0.0355 0.00574 0.0266 1.20e-3 64658.  2648667
+## # ... with 1 more variable: female_pop <dbl>
+\end{verbatim}
+
+\hypertarget{checking-for-duplicated-rows}{%
+\subsubsection{Checking for duplicated
+rows}\label{checking-for-duplicated-rows}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{duplicated}\NormalTok{()}\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{table}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## .
+## FALSE  TRUE 
+##    52     9
+\end{verbatim}
+
+\#\#\#Eliminating duplicated rows
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{  distinct}
+
+\NormalTok{us\_census }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{duplicated}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{table}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## .
+## FALSE 
+##    52
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{us\_census\_1 }\OtherTok{\textless{}{-}}\NormalTok{ us\_census }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{gather}\NormalTok{(}\AttributeTok{key =} \StringTok{"race"}\NormalTok{, }\AttributeTok{value =} \StringTok{"percentage"}\NormalTok{, }\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(us\_census\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 10
+##   State      TotalPop  Native  Asian  Pacific Income male_pop female_pop race   
+##   <chr>         <dbl>   <dbl>  <dbl>    <dbl>  <dbl>    <dbl>      <dbl> <chr>  
+## 1 Alabama     4830620 0.00453 0.0105 0.000344 43296.  2341093    2489527 Hispan~
+## 2 Alaska       733375 0.164   0.0545 0.0106   70355.   384160     349215 Hispan~
+## 3 Arizona     6641928 0.0436  0.0288 0.00168  54208.  3299088    3342840 Hispan~
+## 4 Arkansas    2958208 0.00523 0.0114 0.00147  41936.  1451913    1506295 Hispan~
+## 5 California 38421464 0.00405 0.131  0.00351  67265. 19087135   19334329 Hispan~
+## 6 Colorado    5278906 0.00574 0.0266 0.00120  64658.  2648667    2630239 Hispan~
+## # ... with 1 more variable: percentage <dbl>
+\end{verbatim}
+
+\end{document}

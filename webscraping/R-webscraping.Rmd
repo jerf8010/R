@@ -1,0 +1,45 @@
+---
+title: "R-webscraping"
+author: "Emanuel Fitta"
+date: "26/5/2021"
+output: html_document
+---
+
+### Importing libraries
+```{r}
+library(rvest)
+library(xml2)
+library(dplyr)
+library(tibble)
+```
+
+### The link
+
+```{r}
+link <- "https://www.tripadvisor.es/Restaurant_Review-g150807-d8606874-Reviews-Restaurante_Careyes-Cancun_Yucatan_Peninsula.html"
+```
+
+### Importing the date
+```{r}
+fecha <- read_html(link) %>% 
+  html_nodes(".ratingDate") %>%
+  html_text() %>%
+  enframe("id", "fechas")
+fecha
+```
+
+### Importing a review
+
+```{r}
+resena <- read_html(link) %>% 
+  html_nodes(".partial_entry") %>%
+  html_text() %>%
+  enframe("id", "Reseña")
+
+resena
+```
+
+
+
+
+

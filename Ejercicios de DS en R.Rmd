@@ -1,0 +1,69 @@
+---
+title: "Ejercicios de DS en R"
+author: "jerf"
+date: "11/6/2021"
+output: html_document
+---
+```{r}
+library(readr)
+data <- read.csv("walmart_ecommerce.csv", sep = ",", dec = ".", header = TRUE)
+head(data)
+```
+
+
+### Diagrama de Pareto
+
+```{r}
+table(data$Marca)
+```
+
+
+```{r}
+library(qcc)
+```
+
+```{r}
+pareto.chart(table(data$Marca), col = rainbow(length(table(data$Marca))), main = "Diagrama de Pareto")
+```
+
+
+### Estadística descriptiva
+
+```{r}
+library(DescTools)
+precios<- data$Precio_de_lista
+mean(precios,na.rm = FALSE)
+median(precios,na.rm = FALSE)
+Mode(precios,na.rm = FALSE)
+```
+
+
+```{r}
+rango<-max(precios) -min(precios)
+rango
+var(precios)
+sd(precios)
+```
+
+
+### Histograma
+
+```{r}
+library(ggplot2)
+ggplot(data = data, aes(x=Precio_de_lista))+
+  geom_histogram(bins = 10, fill = "black" , color = "green")+
+  labs(title = "Histograma precios", x = "Precio de lista", y ="Frecuencia")
+
+```
+
+
+### Diagrama de caja y bigotes
+
+```{r}
+boxplot(data$Precio_de_lista,horizontal = TRUE, col = "lightblue",main = "Boxplot de precios de lista", xlab = "Precio de lista")
+```
+
+```{r}
+boxplot.stats(data$Precio_de_lista)$out
+```
+

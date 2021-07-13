@@ -1,0 +1,64 @@
+---
+title: "HairEyeColor Tarea"
+author: "Emanuel Fitta"
+date: "26/5/2021"
+output: html_document
+---
+
+## Juntar color de ojos y pelo sin distinguir por sexo
+
+```{r}
+ftable(HairEyeColor)
+male <- HairEyeColor[,,"Male"]
+female <- HairEyeColor[,,"Female"]
+
+data <- as.table(male + female)
+data
+```
+### Manipulación de datos
+```{r}
+dimnames(data) = list(
+  pelo = c("negro", "marron", "pelirrojo", "rubio")
+,
+ojos = c("marron", "azul", "pardos", "verdes")
+)
+```
+
+### Diagrama de mosaico
+```{r}
+plot(data, col = "lightblue", main = "Diagrama de mosaico")
+```
+
+### Número total de individuos
+
+```{r}
+sum(data)
+```
+```{r}
+colSums(data)
+rowSums(data)
+
+round(prop.table(colSums(data)), 3)
+round(prop.table(rowSums(data)),3)
+```
+```{r}
+barplot(prop.table(colSums(data)), col = c("brown", "lightblue", "yellow", "green"), main = "Frecuencias relativas de colores de ojos", ylim = c(0, 0.4))
+
+barplot(prop.table(rowSums(data)), col = c("black", "brown", "red", "yellow"), main = "Frecuencias relativas de colores de cabello")
+```
+
+
+### Frecuencias relativas globales y marginales
+
+```{r}
+round(prop.table(data), 3)
+round(prop.table(data, margin = 1), 3)
+round(prop.table(data, margin = 2), 3)
+```
+
+```{r}
+barplot(prop.table(data, margin = 1), beside = T, legend.text = T, ylim = c(0, 0.8), col = c("black", "burlywood4", "red", "gold"), main = "Frecuencias relativas del color de pelo \n para cada color de ojo")
+
+barplot(t(prop.table(data, margin = 2)), beside = T, legend.text = T, ylim = c(0, 0.6), col = c("burlywood4", "lightblue", "orange3", "green"), main = "Frecuencias relativas del color de ojo \n para cada color de pelo")
+```
+

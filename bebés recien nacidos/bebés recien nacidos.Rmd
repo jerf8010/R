@@ -1,0 +1,168 @@
+---
+title: "Bebés recien nacidos"
+author: "Emanuel Fitta"
+date: "27/5/2021"
+output: html_document
+---
+
+### Explorando la estructura de 'r birthwt'
+
+```{r}
+library(MASS)
+```
+```{r}
+str(birthwt)
+head(birthwt)
+#help(birthwt)
+```
+
+### Tabla de frecuencias marginales raza-peso menor a 2.5 kg
+
+#### Renombrando variables
+
+```{r}
+race_w <- table(birthwt$low, birthwt$race)
+dimnames(race_w) = list(peso = c("menos_2.5", "mayor_2.5"), raza = c("white", "black", "other"))
+race_w
+```
+
+##### Tabla marginal por filas
+
+```{r}
+round(prop.table(race_w, margin = 1), 3)
+
+```
+##### Tabla marginal por columnas
+
+```{r}
+round(prop.table(race_w, margin = 2), 3)
+
+```
+
+
+### Tabla de mosaico
+
+```{r}
+plot(t(prop.table(race_w)), col = "lightblue", main = "Relación entre la raza de la madre \ny si el niño pesa menos de 2.5 kg")
+
+```
+
+
+### Gráfico de barras
+
+```{r}
+barplot(prop.table(race_w, margin = 1), col = c("blue", "green"), legend.text = T, beside = T, ylim = c(0, 0.8), xlab = "Raza de la madre", main = "Frecuencias relativas del peso por cada tipo de raza")
+
+barplot(t(prop.table(race_w, margin = 2)), col = c("blue", "green", "yellow"), legend.text = T, beside = T, ylim = c(0, 0.8), xlab = "Peso", main = "Frecuencias relativas de la raza por cada peso ")
+```
+
+De la primer grafica (marginal por filas) podemos ver que  las mamás de raza blanca tienen la mayor proporción en cuanto a bebés con un peso menor a 2.5 kg y las de raza negra las de menor proporción.
+
+Del segundo gráfico (marginal por columnas) podemos ver que en general las madres tienden a tener bebés con un peso menor a 2.5 kg.
+
+
+### Tabla de frecuencias marginales mamá fumadora-peso menor a 2.5 kg
+
+#### Renombrando variables
+
+```{r}
+race_f <- table(birthwt$low, birthwt$smoke)
+dimnames(race_f) = list(peso = c("menos_2.5", "mayor_2.5"), raza = c("no_fuma", "si_fuma"))
+race_f
+```
+
+##### Tabla marginal por filas
+
+```{r}
+round(prop.table(race_f, margin = 1), 3)
+
+```
+##### Tabla marginal por columnas
+
+```{r}
+round(prop.table(race_f, margin = 2), 3)
+
+```
+
+
+### Tabla de mosaico
+
+```{r}
+plot(t(prop.table(race_f)), col = "lightblue", main = "Relación entre madres fumadoras o no \ny si el niño pesa menos de 2.5 kg")
+
+```
+
+
+
+### Gráfico de barras
+
+```{r}
+barplot(prop.table(race_f, margin = 1), col = c("blue", "green"), legend.text = T, beside = T, ylim = c(0, 0.8), xlab = "Fumadora", main = "Frecuencias relativas del peso \npor cada tipo de madre (fumadora o no)")
+
+barplot(t(prop.table(race_f, margin = 2)), col = c("blue", "green"), legend.text = T, beside = T, ylim = c(0, 0.8), xlab = "Peso", main = "Frecuencias relativas del tipo de madre\n (fumadora o no) por cada peso ")
+```
+
+
+
+La mayoría de los bebés con peso menor a 2.5 kg su madre no fuma por el contrario (Aunque con menor diferencia) la mayoría de los bebés con un peso mayor a 2.5 kg la mdre fumaba.
+
+Por otro lado de las mamás que no fumaban la mayoría tuvo bebés con un peso menor a 2.5 kg
+
+
+
+
+### Tabla de frecuencias marginales mamá hipertensa-peso menor a 2.5 kg
+
+#### Renombrando variables
+
+```{r}
+race_h <- table(birthwt$low, birthwt$ht)
+dimnames(race_h) = list(peso = c("menos_2.5", "mayor_2.5"), raza = c("no_hipertensa", "hipertensa"))
+race_h
+```
+
+##### Tabla marginal por filas
+
+```{r}
+round(prop.table(race_h, margin = 1), 3)
+
+```
+##### Tabla marginal por columnas
+
+```{r}
+round(prop.table(race_h, margin = 2), 3)
+
+```
+
+
+### Tabla de mosaico
+
+```{r}
+plot(t(prop.table(race_h)), col = "lightblue", main = "Relación entre madres hipertensas o no \ny si el niño pesa menos de 2.5 kg")
+
+```
+
+
+
+### Gráfico de barras
+
+```{r}
+barplot(prop.table(race_h, margin = 1), col = c("blue", "green"), legend.text = T, beside = T, ylim = c(0, 1), xlab = "Hipertensa", main = "Frecuencias relativas del peso \npor cada tipo de madre (hipertensa o no)")
+
+barplot(t(prop.table(race_h, margin = 2)), col = c("blue", "green"), legend.text = T, beside = T, ylim = c(0, 0.8), xlab = "Peso", main = "Frecuencias relativas del tipo de madre\n (hipertensa o no) por cada peso ")
+```
+Las madres no hipertensas tienden a tener hijos con peso menor a los 2.5 kg mientras que las madres hipertensas tienden a tener hijos con peso mayor a los 2.5 kg
+
+
+
+### Relación raza-fumadora-peso del bebé
+
+```{r}
+relacion <- table(birthwt$race, birthwt$smoke, birthwt$low)
+dimnames(relacion) = list(raza = c("white", "black", "other"), fumadora = c("no_fumador", "fumadora"), peso = c("menos_2.5", "mayor_2.5"))
+round(prop.table(relacion),3)
+```
+```{r}
+plot(prop.table(relacion), main = "Relacion")
+```
+

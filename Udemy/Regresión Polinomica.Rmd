@@ -1,0 +1,9 @@
+---
+title: "Regresión Polinómica"
+author: "jerf"
+date: "15/6/2021"
+output: html_document
+---
+
+# Regresión Polinómica
+

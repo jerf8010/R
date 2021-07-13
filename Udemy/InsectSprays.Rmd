@@ -1,0 +1,31 @@
+---
+title: "InsectSprays"
+author: "jerf"
+date: "5/6/2021"
+output: html_document
+---
+
+# Análisis de spray insecticida
+
+Cargamos los datos del data set de `R` llamado `InsectSprays`
+```{r}
+data = InsectSprays
+head(data)
+str(data)
+```
+
+```{r}
+by(data$count, data$spray, FUN = summary)
+```
+
+Los botes A, B y F en general matan más insectos, son más efectivos,
+mientras que los botes C, D y E tienen menor variabilidad, son más predecibles.
+
+```{r}
+aggregate(count~spray, data = data, FUN =sd)
+```
+
+```{r}
+boxplot(data$count~spray , data = data, col = "lightgreen", xlab = "Tipo de spray", ylab = "Insectos muertos")
+```
+

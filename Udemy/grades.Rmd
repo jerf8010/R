@@ -1,0 +1,126 @@
+---
+title: "Grades"
+author: "jerf"
+date: "5/6/2021"
+output: html_document
+---
+## Cargando datos de las notas para diferentes materias
+```{r}
+data = read.table("https://raw.githubusercontent.com/joanby/r-basic/master/data/grades.txt", header = TRUE)
+data
+str(data)
+```
+## Calculando la media,la moda y la mediana 
+### La media aritmetica
+De forma conjunta
+```{r}
+round(mean(data$nota),2)
+```
+Por estudio universitario
+```{r}
+aggregate(data$nota~estudio, data = data, FUN = mean)
+```
+Aplicando `group_by`
+```{r}
+library(dplyr)
+```
+
+
+```{r}
+p <- data %>%
+  group_by(estudio)%>%
+  summarize(promedio = mean(nota))
+p$promedio
+```
+### La mediana
+De forma conjunta
+```{r}
+median(data$nota)
+```
+Por estudio universitario
+```{r}
+aggregate(data$nota~estudio, data = data, FUN = median)
+```
+
+Aplicando `group_by`
+```{r}
+m <- data %>%
+  group_by(estudio) %>%
+  summarize(mediana = median(nota))
+m
+```
+
+### La moda
+De forma conjunta
+```{r}
+tabla <- table(data$nota)
+tabla
+```
+
+```{r}
+as.numeric(names(which(tabla == max(tabla))))
+```
+
+Por estudio universitario
+Industrial
+```{r}
+ind <- data %>%
+      filter(estudio == "Industrial")
+as.numeric(names(which(table(ind$nota) == max(table(ind$nota)))))
+
+```
+
+Informatica
+```{r}
+inf <- data %>%
+      filter(estudio == "Industrial")
+as.numeric(names(which(table(inf$nota) == max(table(inf$nota)))))
+```
+
+Mates
+```{r}
+mat <- data %>%
+      filter(estudio == "Mates")
+as.numeric(names(which(table(mat$nota) == max(table(mat$nota)))))
+```
+Telematica
+
+```{r}
+tel <- data %>%
+      filter(estudio == "Telematica")
+as.numeric(names(which(table(tel$nota) == max(table(tel$nota)))))
+```
+
+
+Podemos observar que el grupo con la nota másalta es el grupo de mates.Mientras que losgrupos que tienen notas por encima de la media de estudiantes son el grupo de Mates y el de Informatica.
+
+### Variación de notas por grupo
+
+```{r}
+aggregate(data$nota~estudio, data = data, FUN = sd)
+```
+Con group_by
+
+```{r}
+des <- data %>%
+  group_by(estudio) %>%
+  summarise(desviacion = sd(nota))
+des
+```
+
+Podemos observar que hay más variación de notas en los grupos de Industrial y de Mates
+
+
+### Boxplot
+
+```{r}
+
+medias <- p$promedio
+boxplot(data = data, nota ~ estudio, xlab = "Grupo de estudio", ylab = "Nota", main = "Boxplot para cada grupo de estudio", col = "lightgreen")
+points(medias, col = "red",pch = 19)
+```
+
+
+
+Se observan valores atípicos en todos los grupos de estudio, excepto en el grupo de Mates
+

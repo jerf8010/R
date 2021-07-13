@@ -1,0 +1,135 @@
+---
+title: "US_census_data"
+author: "Emanuel Fitta"
+date: "25/5/2021"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+#Importing libraries
+
+```{r}
+library(dplyr)
+library(readr)
+library(tidyr)
+```
+### Attaching files
+
+```{r}
+files <- list.files(pattern = "states_.*csv")
+df_list <- lapply(files, read_csv)
+us_census <- bind_rows(df_list)
+```
+###Inspecting 'r us_census' Data Frame
+
+```{r}
+head(us_census)
+```
+
+```{r}
+str(us_census)
+```
+```{r}
+colnames(us_census)
+```
+### Droping X1 column
+
+```{r}
+us_census <- us_census %>%select(-X1)
+head(us_census)
+```
+
+###Removing $\%$ symbol from each race columns
+
+```{r}
+us_census <- us_census %>% 
+mutate(Hispanic = gsub('\\%', '', Hispanic), 
+White = gsub('\\%','', White),
+Black =gsub('\\%','', Black),
+Native = gsub('\\%','', Native),
+Asian = gsub('\\%', '', Asian),
+Pacific = gsub('\\%', '', Pacific), Income = gsub('\\$', '', Income) ) 
+
+head(us_census)
+```
+
+### Separating GenderPop column
+
+```{r}
+us_census <- us_census %>% 
+  separate(GenderPop, into = c("male_pop", "female_pop"), sep = "_")
+
+head(us_census)
+```
+
+###Removing M and F from male_pop and female_pop columns
+
+```{r}
+us_census <- us_census %>% 
+  mutate(male_pop =gsub("\\M", "", male_pop))
+
+us_census <- us_census %>% 
+  mutate(female_pop =gsub("\\F", "", female_pop))
+
+head(us_census)
+```
+
+
+###Converting to numeric type
+
+```{r}
+us_census <- us_census %>%
+  mutate(Hispanic = as.numeric(Hispanic),
+         White = as.numeric(White),
+         Black = as.numeric(Black),
+         Native = as.numeric(Native),
+         Asian = as.numeric(Asian),
+         Pacific = as.numeric(Pacific),
+         Income = as.numeric(Income),
+         male_pop = as.numeric(male_pop),
+      female_pop = 
+        as.numeric(female_pop)
+            )
+
+head(us_census)
+```
+
+###Converting to decimal the percentages
+
+
+```{r}
+us_census <- us_census %>%
+  mutate(Hispanic = Hispanic/100,
+         White = White/100,
+         Black = Black/100,
+         Native = Native/100,
+         Asian = Asian/100,
+         Pacific = Pacific/100)
+
+head(us_census)
+```
+
+
+### Checking for duplicated rows
+
+```{r}
+us_census %>% duplicated()%>% table()
+
+```
+###Eliminating duplicated rows
+
+```{r}
+us_census <- us_census %>% 
+  distinct
+
+us_census %>% duplicated() %>% table()
+```
+
+```{r}
+us_census_1 <- us_census %>%
+  gather(key = "race", value = "percentage", 3:5)
+head(us_census_1)
+```
+

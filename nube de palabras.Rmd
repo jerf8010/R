@@ -1,0 +1,56 @@
+---
+title: "nube de palabras"
+author: "jerf"
+date: "10/6/2021"
+output: html_document
+---
+# Nube de palabras
+
+```{r}
+library(readr)
+data<-read.csv('opiniones+acerca+de+vinos.csv', header = TRUE, sep = ",", dec = ".", row.names = 1)
+data
+```
+
+
+Llevaremos analisis en la columna descripcion
+```{r}
+library(tm) # Paquete para minería de texto
+
+```
+
+```{r}
+palabras<-Corpus(VectorSource(data$description))
+palabras
+```
+### Limpiando dadtos
+
+```{r}
+palabras<-tm_map(palabras, content_transformer(tolower)) #convertimos a minusculas
+
+palabras<-tm_map(palabras,removePunctuation) #quitamos signos de puntuacion
+
+palabras<-tm_map(palabras, removeWords, stopwords("english")) #quitar articulos, etc
+```
+
+### Los colores que usaremos
+
+```{r}
+library(RColorBrewer)
+colores = brewer.pal(8, "Dark2") #(cantidad de colores, del conjunto Dark2)
+```
+
+### Libreria para hacer la nube de palabras
+
+```{r}
+library(wordcloud)
+```
+### nube de palabras
+```{r}
+wordcloud(palabras, scale=c(2.6,0.3), random.order = FALSE, max.words = 75, rot.per = 0.25, colors = colores)
+
+title(main = "wordCloud vinos",cex.main = 1.5)
+```
+
+
+
